@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "simple-line-marker",
+	"name": "Simple Line Marker",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "A simple plugin that enables line-based highlighting and marking up a line with a prefixed tag.",
+	"author": "Shay Kalyan",
+	"authorUrl": "https://shaykalyan.com",
 	"isDesktopOnly": false
 }

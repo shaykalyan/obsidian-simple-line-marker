@@ -6,3 +6,31 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+
+.muted-text {
+    color: var(--text-muted);
+}
+
+.faint-text {
+    color: var(--text-faint);
+}
+
+.on-accent-text {
+    color: var(--text-on-accent);
+}
+
+.success-text {
+    color: var(--text-success);
+}
+
+.warning-text {
+    color: var(--text-warning);
+}
+
+.error-text {
+    color: var(--text-error);
+}
+
+.accent-text {
+    color: var(--text-accent);
+}
