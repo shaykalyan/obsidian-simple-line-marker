@@ -1,4 +1,21 @@
-# Obsidian Sample Plugin
+# Simple Line Marker
+
+Work in progress plugin that enables: 
+* Better text highlighting via `==` wrapping by enabling entire line-based highlighting by default
+* Marking up of lines with a prefixed emoji: 🟢, 🟠, 🔴
+
+
+
+## TODO
+- [ ] Add preview gif to repo readme
+- [ ] Tidy up the repo
+- [ ] Enable settings to enable user to specify N number of custom prefix text
+- [ ] Publish the plugin! 
+
+
+---
+
+# Original README
 
 This is a sample plugin for Obsidian (https://obsidian.md).
 
