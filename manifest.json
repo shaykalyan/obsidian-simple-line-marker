@@ -1,7 +1,7 @@
 {
 	"id": "simple-line-marker",
 	"name": "Simple Line Marker",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"minAppVersion": "0.15.0",
 	"description": "A simple plugin that enables line-based highlighting and marking up a line with a prefixed tag.",
 	"author": "Shay Kalyan",
