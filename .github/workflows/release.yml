@@ -24,13 +24,13 @@ jobs:
 
       - name: Zip build files
         run: |
-          zip simple-line-marker-$tag.zip main.js manifest.json styles.css
+          zip simple-line-marker-${GITHUB_REF_NAME}.zip main.js manifest.json styles.css
 
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tag="${GITHUB_REF#refs/tags/}"
+          tag="${GITHUB_REF_NAME}"
 
           gh release create "$tag" \
             --title="$tag" \
