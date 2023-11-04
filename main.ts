@@ -129,14 +129,14 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 			resolvedContent = beforePrefixContent + wrappedContent + afterPostfixContent;
 		}
 		else {
-			const markdownType = this.detectMarkdownType(content);
-			// console.log(markdownType);
+			const markdownTokenType = this.detectMarkdownTokenType(content);
+			// console.log(markdownTokenType);
 			let prefixedMarkdownContent = "";
-			if (markdownType.type != "paragraph") {
-				prefixedMarkdownContent = content.slice(0, markdownType.index + 1) + " ";
+			if (markdownTokenType.type != "paragraph") {
+				prefixedMarkdownContent = content.slice(0, markdownTokenType.markdownTokenEndIndex + 1) + " ";
 			}
 
-			const contentToWrap = content.slice(markdownType.index + 1).trim();
+			const contentToWrap = content.slice(markdownTokenType.markdownTokenEndIndex + 1).trim();
 			resolvedContent = prefixedMarkdownContent + wrapPrefix + contentToWrap + wrapPostfix;
 		}
 		return resolvedContent;
@@ -146,23 +146,24 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 		console.log('unloading plugin')
 	}
 
-	detectMarkdownType(lineText: string) {
-		const bulletIndex = lineText.match(/^\s*[*-]\s/);
-		const checkboxIndex = lineText.match(/^\s*- \[[x ]\]/);
-		const quoteIndex = lineText.match(/^\s*> /);
+	detectMarkdownTokenType(lineText: string) {
+		const bulletTokenMatchResult = lineText.match(/^\s*[*-]\s/);
+		const checkboxTokenMatchResult = lineText.match(/^\s*[*-] \[[x ]\]/);
+		const quoteTokenMatchIndex = lineText.match(/^\s*> /);
 
-		// console.log(bulletIndex);
-		// console.log(checkboxIndex);
-		// console.log(quoteIndex);
+		// console.log(bulletTokenMatchResult);
+		// console.log(checkboxTokenMatchResult);
+		// console.log(quoteTokenMatchIndex);
 
-		if (bulletIndex != null) {
-			return { type: 'bullet', index: bulletIndex.index || 0 + bulletIndex[0].length - 1 };
-		} else if (checkboxIndex != null) {
-			return { type: 'checkbox', index: checkboxIndex.index || 0 + checkboxIndex[0].length - 1 };
-		} else if (quoteIndex != null) {
-			return { type: 'quote', index: quoteIndex.index || 0 + quoteIndex[0].length - 1 };
+		// checkbox should take precedence here over bullet for accurate determination
+		if (checkboxTokenMatchResult != null) {
+			return { type: 'checkbox', markdownTokenEndIndex: checkboxTokenMatchResult.index || 0 + checkboxTokenMatchResult[0].length - 1 };
+		} else if (bulletTokenMatchResult != null) {
+			return { type: 'bullet', markdownTokenEndIndex: bulletTokenMatchResult.index || 0 + bulletTokenMatchResult[0].length - 1 };
+		} else if (quoteTokenMatchIndex != null) {
+			return { type: 'quote', markdownTokenEndIndex: quoteTokenMatchIndex.index || 0 + quoteTokenMatchIndex[0].length - 1 };
 		} else {
-			return { type: 'paragraph', index: -1 };
+			return { type: 'paragraph', markdownTokenEndIndex: -1 };
 		}
 	}
 
