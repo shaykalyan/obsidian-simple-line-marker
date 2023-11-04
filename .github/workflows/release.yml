@@ -33,6 +33,6 @@ jobs:
           tag="${GITHUB_REF_NAME}"
 
           gh release create "$tag" \
-            --title="$tag" \
+            --title="Simple Line Marker $tag" \
             --draft \
             main.js manifest.json styles.css simple-line-marker-$tag.zip
