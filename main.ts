@@ -15,7 +15,7 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings();
-		console.log('loading plugin')
+		// console.log('loading plugin')
 
 		this.addCommand({
 			id: 'simple-line-marker-toggle-highlight',
@@ -85,11 +85,11 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 		const cursor = editor.getCursor();
 		const lineNumber = cursor.line;
 		let line = editor.getLine(lineNumber);
-		console.log(`line text: ${line}`);
+		// console.log(`line text: ${line}`);
 
 		const selection = editor.getSelection();
 		let isSelection = false;
-		console.log(`selection: ${selection}`);
+		// console.log(`selection: ${selection}`);
 
 		if (selection.trim() != '') {
 			isSelection = true;
@@ -101,7 +101,7 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 			return;
 		}
 
-		console.log(`content to wrap: ${line}`);
+		// console.log(`content to wrap: ${line}`);
 
 		const wrappedLine = this.toggleContentWrap(line, wrapPrefix, wrapPostfix, wrapPrefixIndentifyingSubstring);
 
@@ -121,7 +121,7 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 			wrapPrefixIndex != wrapPostfixIndex;
 
 		let resolvedContent = content;
-		console.log(`isWrapped: ${isWrapped}`);
+		// console.log(`isWrapped: ${isWrapped}`);
 		if (isWrapped) {
 			const beforePrefixContent = content.slice(0, wrapPrefixIndex);
 			const wrappedContent = content.slice(wrapPrefixIndex + wrapPrefix.length, wrapPostfixIndex);
@@ -143,7 +143,7 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 	}
 
 	onunload() {
-		console.log('unloading plugin')
+		// console.log('unloading plugin')
 	}
 
 	detectMarkdownTokenType(lineText: string) {
