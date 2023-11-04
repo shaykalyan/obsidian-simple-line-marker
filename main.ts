@@ -147,8 +147,8 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 	}
 
 	detectMarkdownTokenType(lineText: string) {
-		const bulletTokenMatchResult = lineText.match(/^\s*[*-]\s/);
-		const checkboxTokenMatchResult = lineText.match(/^\s*[*-] \[[x ]\]/);
+		const bulletTokenMatchResult = lineText.match(/^[>]*\s*[*-]\s/);
+		const checkboxTokenMatchResult = lineText.match(/[>]*^\s*[*-] \[[x ]\]/);
 		const quoteTokenMatchIndex = lineText.match(/^\s*> /);
 
 		// console.log(bulletTokenMatchResult);
