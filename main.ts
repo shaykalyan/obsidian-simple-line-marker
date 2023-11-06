@@ -83,8 +83,9 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 
 	private handleWrapCommand(editor: Editor, view: MarkdownView, wrapPrefix: string, wrapPostfix: string, wrapPrefixIndentifyingSubstring?: string) {
 		const cursor = editor.getCursor();
-		const lineNumber = cursor.line;
-		let line = editor.getLine(lineNumber);
+		const cursorLineNumber = cursor.line;
+		let cursorIndex = cursor.ch;
+		let line = editor.getLine(cursorLineNumber);
 		// console.log(`line text: ${line}`);
 
 		const selection = editor.getSelection();
@@ -109,8 +110,15 @@ export default class SimpleLineMarkerPlugin extends Plugin {
 			editor.replaceSelection(wrappedLine);
 		}
 		else {
-			editor.setLine(lineNumber, wrappedLine);
+			editor.setLine(cursorLineNumber, wrappedLine);
 		}
+
+		// apply appropriate offset to cursor position depending on whether line is now-wrapped or wrap was removed
+		// TODO: unwrapping flow needs to take into account whether the cursor was within the bounds of the pre and post content
+		// in order to accurately place the cursor (i.e., should it offset by just the prefix or both prefix and postfix content)
+		const isNowWrapped = (wrappedLine.length - line.length) > 0;
+		cursorIndex += (isNowWrapped ? 1 : -1) * (wrapPrefix.length);
+		editor.setCursor(cursorLineNumber, cursorIndex);
 	}
 
 	private toggleContentWrap(content: string, wrapPrefix: string, wrapPostfix: string, wrapPrefixIndentifyingSubstring?: string) {
